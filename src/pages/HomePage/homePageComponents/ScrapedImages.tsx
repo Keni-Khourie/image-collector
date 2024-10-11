@@ -12,14 +12,20 @@ const ScrapedImages = ({scrapedImages, removeSelectedImage}: ScrapedImagesProps)
 
     }, [scrapedImages.length])
   return (
-     <div style={{display:"flex", flexWrap:"wrap", gap: "10px"}}>
-            {scrapedImages.map((image, index)=>{
-                return(
-                    <ImageCard key={index} imgUrl={image} removeSelectedImage={removeSelectedImage} id={index}/>
-                )
-            })}
-
-        </div>
+     <div>
+        { scrapedImages.length > 0?
+         <div style={{display:"flex", flexWrap:"wrap", gap: "10px"}}>
+                {scrapedImages.map((image, index)=>{
+                    return(
+                        <ImageCard key={index} imgUrl={image} removeSelectedImage={removeSelectedImage} id={index}/>
+                    )
+                })}
+            </div>:
+            <div>
+                <h1>NOTHING SCRAPED</h1>
+            </div>
+}
+     </div>
   )
 }
 

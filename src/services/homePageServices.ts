@@ -15,6 +15,7 @@ try {
 }
 if(res && res.data.error){
     console.log(res.data.error);
+    return []
 }
 } catch (error) {
     console.log("Error collecting info");

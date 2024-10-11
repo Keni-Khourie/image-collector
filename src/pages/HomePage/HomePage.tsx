@@ -11,16 +11,21 @@ const HomePage = () => {
         imageURL: ""
     })
     const [scrapedImages, setScrapedImages] = useState<string[]>([])
+    const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [scrapeCompleted, setScrapeCompleted] = useState<boolean>(false)
 
     const handleChange = (event:ChangeEvent<HTMLInputElement>)=>{
         setPageUrl({...pageUrl, [event.target.name]:event.target.value})
     }
     const handleSubmit = async (event:FormEvent)=>{
         event.preventDefault()
+        setIsLoading(true)
      //   console.log(pageUrl);
        
 
        setScrapedImages(await scrapeURL(pageUrl)) 
+       setScrapeCompleted(true)
+       setIsLoading(false)
     }
     const removeSelectedImage = (index: number)=>{
         scrapedImages.splice(index, 1)
@@ -33,7 +38,8 @@ const HomePage = () => {
         <ScrapeForm
         pageUrl={pageUrl} handleChange={handleChange} handleSubmit={handleSubmit}
         />
-        <ScrapedImages scrapedImages={scrapedImages} removeSelectedImage ={removeSelectedImage}/>
+        {isLoading && <p>Loading...</p>} 
+        {!isLoading && scrapeCompleted && <ScrapedImages scrapedImages={scrapedImages} removeSelectedImage ={removeSelectedImage}/>}
 
        
     </div>
